@@ -1,0 +1,16 @@
+Werkzeug==2.0.3
+Flask==2.0.3
+flask-restx==0.5.1
+gunicorn
+#requests==2.27.1
+#websocket-client==1.3.2
+#Flask-SQLAlchemy
+# sqlalchemy
+pylint
+requests
+websocket-client==0.56
+flask_cors==3.0.10
+finta
+holidays
+#ruamel_yaml
+#Jinja2==2.11.3
