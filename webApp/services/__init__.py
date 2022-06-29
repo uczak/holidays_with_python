@@ -11,7 +11,7 @@ from services.holidays.controller import request_holiday_namespace
 
 # Application basic settings.
 __app_title__ = "Services"
-__app_description__ = 'Services API. Bot for speculation in binary options.'
+__app_description__ = 'Services API.'
 __app_secret_key__ = b'\x9b\x89\xe61x|\x9e\xf4\x0b[\x0e\xa8\xd0\xa2o6F\xd4@\x15\x11\xfe\x9f\xd7'
 __version_tag__ = environ.get('API_VERSION', '1.0')
 
