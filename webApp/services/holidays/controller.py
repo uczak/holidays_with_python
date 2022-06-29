@@ -47,7 +47,7 @@ EXPEDIENTE_REDUZIDO = [
 ]
 EXPEDIENTE_NORMAL = [
     '02-02',
-    '03-02'
+    'Quarta-feira de cinzas (Início da Quaresma)'
 ]
 
 class Signal(enum.Enum):
