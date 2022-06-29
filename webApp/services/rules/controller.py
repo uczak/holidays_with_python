@@ -27,20 +27,22 @@ DIAS = [
     'Domingo'
 ]
 NAO_HA_EXPEDIENTE = [
-    '04-17',
+    '01-01',
     '05-01',
     '12-24',
     '12-25',
     '12-31'
 ]
 EXPEDIENTE_REDUZIDO = [
-    '04-17',
-    '05-01',
-    '12-24',
-    '12-25',
-    '12-31'
+    '04-21',
+    '09-07',
+    '09-20',
+    '10-12',
+    '11-02',
+    '11-15',
 ]
 EXPEDIENTE_NORMAL = [
+    '02-02',
     '03-02'
 ]
 
@@ -81,8 +83,8 @@ class RulesRequest(Resource):
         data_split = str(day).split('-')
         holiday["dia"] = str(day)
         holiday["descrição"] = description
-        holiday["expediente"] = self.office_hour(str(day)[5:10])
         holiday["dia da semana"] = DIAS[date(year=int(data_split[0]), month=int(data_split[1]), day=int(data_split[2])).weekday()]
+        holiday["expediente"] = self.office_hour(str(day)[5:10])
         return holiday
 
     def extract_time(self, json):
