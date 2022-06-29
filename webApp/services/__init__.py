@@ -5,7 +5,7 @@ from flask import Flask, redirect
 from flask_cors import CORS, cross_origin
 from flask_restx import Api
 
-from services.rules.controller import request_rules_namespace
+from services.holidays.controller import request_holiday_namespace
 
 #from services.repository.connection import Connection_api
 
@@ -27,13 +27,8 @@ api = Api(app, version=__version_tag__, title=__app_title__,
           description=__app_description__)
 CORS(app)
 
-#instance_connection_api= None
-#instance_connection_api = Connection_api()
-# instance_connection_api.connection()
-
-
 # Register apis.
-api.add_namespace(request_rules_namespace)
+api.add_namespace(request_holiday_namespace)
 
 
 @app.route('/swagger')

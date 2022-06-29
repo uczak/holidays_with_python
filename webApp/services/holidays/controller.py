@@ -14,8 +14,8 @@ from flask_restx import Namespace, Resource, fields
 
 
 # Namespace
-request_rules_namespace = Namespace(
-    'Rules', description="Service to get rules data.")
+request_holiday_namespace = Namespace(
+    'Holidays', description="Service to get Holidays.")
 
 DIAS = [
     'Segunda-feira',
@@ -31,7 +31,8 @@ NAO_HA_EXPEDIENTE = [
     '05-01',
     '12-24',
     '12-25',
-    '12-31'
+    '12-31',
+    'Páscoa'
 ]
 EXPEDIENTE_REDUZIDO = [
     '04-21',
@@ -40,6 +41,9 @@ EXPEDIENTE_REDUZIDO = [
     '10-12',
     '11-02',
     '11-15',
+    'Carnaval',
+    'Sexta-feira Santa',
+    'Corpus Christi'
 ]
 EXPEDIENTE_NORMAL = [
     '02-02',
@@ -53,7 +57,7 @@ class Signal(enum.Enum):
     date_not_registered = "Data não cadastrada"
 
 
-@request_rules_namespace.route('/<ano>/')
+@request_holiday_namespace.route('/<ano>/')
 class RulesRequest(Resource):
 
     def get(self, ano):
@@ -69,12 +73,12 @@ class RulesRequest(Resource):
         #print(holidays_poa)
         return holidays_poa, 200
 
-    def office_hour(self, month_and_day):
-        if month_and_day in NAO_HA_EXPEDIENTE:
+    def office_hour(self, month_and_day, description):
+        if month_and_day in NAO_HA_EXPEDIENTE or description in NAO_HA_EXPEDIENTE:
             return Signal.There_is_no_service.value
-        elif month_and_day in EXPEDIENTE_REDUZIDO:
+        elif month_and_day in EXPEDIENTE_REDUZIDO or description in EXPEDIENTE_REDUZIDO:
             return Signal.reduced_working_hours.value
-        elif month_and_day in EXPEDIENTE_NORMAL:
+        elif month_and_day in EXPEDIENTE_NORMAL or description in EXPEDIENTE_NORMAL:
             return Signal.normal.value
         return Signal.date_not_registered.value
 
@@ -84,7 +88,7 @@ class RulesRequest(Resource):
         holiday["dia"] = str(day)
         holiday["descrição"] = description
         holiday["dia da semana"] = DIAS[date(year=int(data_split[0]), month=int(data_split[1]), day=int(data_split[2])).weekday()]
-        holiday["expediente"] = self.office_hour(str(day)[5:10])
+        holiday["expediente"] = self.office_hour(str(day)[5:10], description)
         return holiday
 
     def extract_time(self, json):
